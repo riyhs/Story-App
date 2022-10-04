@@ -1,4 +1,4 @@
-package com.riyaldi.storyapp
+package com.riyaldi.storyapp.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

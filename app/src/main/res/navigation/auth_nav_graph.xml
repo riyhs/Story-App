@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.riyaldi.storyapp.ui.auth.LoginFragment"
+        android:name="com.riyaldi.storyapp.ui.auth.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.riyaldi.storyapp.ui.auth.SignUpFragment"
+        android:name="com.riyaldi.storyapp.ui.auth.signup.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action

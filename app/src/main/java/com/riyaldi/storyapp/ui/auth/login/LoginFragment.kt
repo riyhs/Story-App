@@ -1,4 +1,4 @@
-package com.riyaldi.storyapp.ui.auth
+package com.riyaldi.storyapp.ui.auth.login
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

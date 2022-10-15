@@ -1,11 +1,11 @@
 package com.riyaldi.storyapp.network
 
+import com.riyaldi.storyapp.model.login.LoginResponse
 import com.riyaldi.storyapp.model.signup.SignUpResponse
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
-
     @FormUrlEncoded
     @POST("register")
     fun postSignUp(
@@ -13,4 +13,11 @@ interface ApiService {
         @Field("email") enail: String,
         @Field("password") password: String
     ): Call<SignUpResponse>
+
+    @FormUrlEncoded
+    @POST("login")
+    fun postLogin(
+        @Field("email") enail: String,
+        @Field("password") password: String
+    ): Call<LoginResponse>
 }

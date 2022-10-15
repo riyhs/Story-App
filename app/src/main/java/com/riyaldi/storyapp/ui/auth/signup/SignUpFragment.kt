@@ -34,6 +34,8 @@ class SignUpFragment : Fragment() {
     ): View? {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
+        binding.tvSignupHaveAccount.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.loginFragment))
+
         binding.btSignUp.setOnClickListener{
             val name = binding.etSignupName.text.toString()
             val email = binding.etSignupEmail.text.toString()

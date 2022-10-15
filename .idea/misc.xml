@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/activity_auth.xml" value="0.25" />
+        <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_login.xml" value="0.2359375" />
+        <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
+        <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
       </map>
     </option>
   </component>

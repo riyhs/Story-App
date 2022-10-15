@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/listStoryFragment">
+
+    <fragment
+        android:id="@+id/listStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.ListStoryFragment"
+        android:label="fragment_list_story"
+        tools:layout="@layout/fragment_list_story" >
+        <action
+            android:id="@+id/action_listStoryFragment_to_detailStoryFragment"
+            app:destination="@id/detailStoryFragment" />
+        <action
+            android:id="@+id/action_listStoryFragment_to_createStoryFragment"
+            app:destination="@id/createStoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.DetailStoryFragment"
+        android:label="fragment_detail_story"
+        tools:layout="@layout/fragment_detail_story" />
+    <fragment
+        android:id="@+id/createStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.CreateStoryFragment"
+        android:label="fragment_create_story"
+        tools:layout="@layout/fragment_create_story" />
+</navigation>

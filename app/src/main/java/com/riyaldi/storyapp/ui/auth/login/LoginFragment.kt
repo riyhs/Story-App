@@ -55,7 +55,7 @@ class LoginFragment : Fragment() {
 
     private fun processLogin(data: LoginResponse) {
         if (data.error) {
-            Toast.makeText(requireContext(), "Gagal Login", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Gagal Login", Toast.LENGTH_LONG).show()
         } else {
             Preference.saveToken(data.loginResult.token, requireContext())
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)

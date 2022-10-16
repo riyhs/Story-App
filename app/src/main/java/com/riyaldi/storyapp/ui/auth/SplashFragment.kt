@@ -13,31 +13,24 @@ import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 
 class SplashFragment : Fragment() {
-
-    companion object {
-        private var STATUS = "status";
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        val sharedPref = com.riyaldi.storyapp.utils.Preference.initPref(requireContext(), "onSignIn")
+        val token = sharedPref.getString("token", "")
+
+        var action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+
+        if (token != "") {
+            action = SplashFragmentDirections.actionSplashFragmentToMainActivity()
+        }
+
         Handler(Looper.getMainLooper()).postDelayed({
-            val action = SplashFragmentDirections.actionSplashFragmentToSignUpFragment()
             findNavController().navigate(action)
         }, 750)
 
         return inflater.inflate(R.layout.fragment_splash, container, false)
-    }
-
-    private fun onSignInFinished() {
-//        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
-//        TOKEN_KEY = sharedPref.getString("token", "token").toString()
-//        STATUS = sharedPref.getString("status", "status").toString()
     }
 }

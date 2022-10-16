@@ -30,9 +30,6 @@ class ListStoryFragment : Fragment() {
         binding.btDetailStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailStoryFragment))
         binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
 
-        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
-        val token = sharedPref.getString("token", "token")
-
         return binding.root
     }
 

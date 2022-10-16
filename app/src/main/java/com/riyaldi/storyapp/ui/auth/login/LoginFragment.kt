@@ -14,6 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentLoginBinding
 import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
+import com.riyaldi.storyapp.model.login.LoginResponse
+import com.riyaldi.storyapp.utils.Preference
 
 class LoginFragment : Fragment() {
 
@@ -44,17 +46,18 @@ class LoginFragment : Fragment() {
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
-        loginViewModel.isLoginFailed.observe(requireActivity()) {
+        loginViewModel.loginResponse.observe(requireActivity()) {
             processLogin(it)
         }
 
         return binding.root
     }
 
-    private fun processLogin(isFailed: Boolean) {
-        if (isFailed) {
+    private fun processLogin(data: LoginResponse) {
+        if (data.error) {
             Toast.makeText(requireContext(), "Gagal Login", Toast.LENGTH_SHORT).show()
         } else {
+            Preference.saveToken(data.loginResult.token, requireContext())
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             activity?.finish()
         }

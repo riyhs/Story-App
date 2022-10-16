@@ -1,6 +1,7 @@
 package com.riyaldi.storyapp.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.navigation.Navigation
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
 import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
+import com.riyaldi.storyapp.utils.Preference
 
 class ListStoryFragment : Fragment() {
 
@@ -27,6 +29,9 @@ class ListStoryFragment : Fragment() {
 
         binding.btDetailStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailStoryFragment))
         binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+
+        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
+        val token = sharedPref.getString("token", "token")
 
         return binding.root
     }

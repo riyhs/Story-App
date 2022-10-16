@@ -34,7 +34,12 @@
         <action
             android:id="@+id/action_loginFragment_to_mainActivity"
             app:destination="@id/mainActivity"
-            app:popUpTo="@id/mainActivity"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/signUpFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -45,6 +50,12 @@
         <action
             android:id="@+id/action_signUpFragment_to_mainActivity"
             app:destination="@id/mainActivity"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <activity

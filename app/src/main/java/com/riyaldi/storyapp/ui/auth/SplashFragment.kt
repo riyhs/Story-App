@@ -3,21 +3,24 @@ package com.riyaldi.storyapp.ui.auth
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.preference.Preference
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation.findNavController
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 
 class SplashFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        return inflater.inflate(R.layout.fragment_splash, container, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val sharedPref = com.riyaldi.storyapp.utils.Preference.initPref(requireContext(), "onSignIn")
         val token = sharedPref.getString("token", "")
 
@@ -25,12 +28,14 @@ class SplashFragment : Fragment() {
 
         if (token != "") {
             action = SplashFragmentDirections.actionSplashFragmentToMainActivity()
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(action)
+                requireActivity().finish()
+            }, 750)
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed({
+                findNavController().navigate(action)
+            }, 750)
         }
-
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(action)
-        }, 750)
-
-        return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 }

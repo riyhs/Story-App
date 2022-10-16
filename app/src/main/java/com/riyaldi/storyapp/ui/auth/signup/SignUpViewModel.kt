@@ -15,8 +15,8 @@ class SignUpViewModel : ViewModel() {
         private const val TAG = "SignUpViewModel"
     }
 
-    private val _isSignUpFailed = MutableLiveData<Boolean>()
-    val isSignUpFailed: LiveData<Boolean> = _isSignUpFailed
+    private val _signUpResponse = MutableLiveData<SignUpResponse>()
+    val signUpResponse: LiveData<SignUpResponse> = _signUpResponse
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -28,7 +28,7 @@ class SignUpViewModel : ViewModel() {
             override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
-                    _isSignUpFailed.value = response.body()?.error
+                    _signUpResponse.value = response.body()
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }

@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
@@ -17,20 +19,30 @@ class ListStoryFragment : Fragment() {
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListStoryBinding.inflate(inflater, container, false)
+        return FragmentListStoryBinding.inflate(inflater, container, false).root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.btDetailStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailStoryFragment))
-        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+//        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+        binding.fabCreateStory.setOnClickListener {
+            Preference.logOut(requireContext())
+        }
 
-        return binding.root
+        onBackPressed()
+    }
+
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        })
     }
 
     override fun onDestroyView() {

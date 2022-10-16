@@ -2,18 +2,17 @@ package com.riyaldi.storyapp.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentLoginBinding
-import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
 import com.riyaldi.storyapp.model.login.LoginResponse
 import com.riyaldi.storyapp.utils.Preference
 
@@ -32,8 +31,11 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return FragmentLoginBinding.inflate(inflater, container, false).root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.tvLoginDontHaveAccount.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.signUpFragment))
 
         binding.btLogin.setOnClickListener{
@@ -49,8 +51,6 @@ class LoginFragment : Fragment() {
         loginViewModel.loginResponse.observe(requireActivity()) {
             processLogin(it)
         }
-
-        return binding.root
     }
 
     private fun processLogin(data: LoginResponse) {
@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
         } else {
             Preference.saveToken(data.loginResult.token, requireContext())
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
-            activity?.finish()
+            requireActivity().finish()
         }
     }
 

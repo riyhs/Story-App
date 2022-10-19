@@ -7,16 +7,28 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
     companion object{
-        fun getApiService(): ApiService {
+        private fun getInterceptor(token: String?): OkHttpClient {
             val loggingInterceptor =
                 HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-            val client = OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build()
+
+            return if (token.isNullOrEmpty()) {
+                OkHttpClient.Builder()
+                    .addInterceptor(loggingInterceptor)
+                    .build()
+            } else {
+                OkHttpClient.Builder()
+                    .addInterceptor(AuthInterceptor(token))
+                    .addInterceptor(loggingInterceptor)
+                    .build()
+            }
+        }
+
+        fun getApiService(token: String? = ""): ApiService {
+
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://story-api.dicoding.dev/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
+                .client(getInterceptor(token))
                 .build()
             return retrofit.create(ApiService::class.java)
         }

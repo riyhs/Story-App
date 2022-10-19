@@ -27,7 +27,11 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignUpBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.tvSignupHaveAccount.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.loginFragment))
 
         binding.btSignUp.setOnClickListener{
@@ -44,8 +48,6 @@ class SignUpFragment : Fragment() {
         signUpViewModel.signUpResponse.observe(requireActivity()) {
             processSignUp(it)
         }
-
-        return binding.root
     }
 
     private fun processSignUp(data: SignUpResponse) {
@@ -54,7 +56,6 @@ class SignUpFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Sign Up berhasil, silahkan login!", Toast.LENGTH_LONG).show()
             findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
-            activity?.finish()
         }
     }
 

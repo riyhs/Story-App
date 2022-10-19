@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listStoryFragment"
-        android:name="com.riyaldi.storyapp.ui.main.ListStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.liststory.ListStoryFragment"
         android:label="fragment_list_story"
         tools:layout="@layout/fragment_list_story" >
         <action

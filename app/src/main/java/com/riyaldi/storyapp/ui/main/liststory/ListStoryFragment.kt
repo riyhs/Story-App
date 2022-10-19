@@ -1,4 +1,4 @@
-package com.riyaldi.storyapp.ui.main
+package com.riyaldi.storyapp.ui.main.liststory
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
 import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
+import com.riyaldi.storyapp.ui.auth.login.LoginViewModel
 import com.riyaldi.storyapp.utils.Preference
 
 class ListStoryFragment : Fragment() {
@@ -19,11 +21,14 @@ class ListStoryFragment : Fragment() {
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
 
+    private val listStoryViewModel: ListStoryViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return FragmentListStoryBinding.inflate(inflater, container, false).root
+        _binding = FragmentListStoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,11 +39,20 @@ class ListStoryFragment : Fragment() {
             Preference.logOut(requireContext())
         }
 
+        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
+        Toast.makeText(requireContext(), sharedPref.getString("token", "").toString(), Toast.LENGTH_LONG).show()
+        listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
+        listStoryViewModel.getStories().observe(requireActivity()) { data ->
+            if (data != null) {
+                Log.d("LIST_STORY", data.toString())
+            }
+        }
+
         onBackPressed()
     }
 
     private fun onBackPressed() {
-        requireActivity().onBackPressedDispatcher?.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 requireActivity().finish()
             }

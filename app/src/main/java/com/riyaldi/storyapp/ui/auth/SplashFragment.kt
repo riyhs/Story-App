@@ -3,12 +3,14 @@ package com.riyaldi.storyapp.ui.auth
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
+import com.riyaldi.storyapp.utils.Preference
 
 class SplashFragment : Fragment() {
 
@@ -21,7 +23,7 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val sharedPref = com.riyaldi.storyapp.utils.Preference.initPref(requireContext(), "onSignIn")
+        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
         val token = sharedPref.getString("token", "")
 
         var action = SplashFragmentDirections.actionSplashFragmentToLoginFragment()

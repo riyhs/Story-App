@@ -30,12 +30,10 @@ class LoginViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _loginResponse.value = response.body()
                 } else {
+                    _loginResponse.value = response.body()
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
-//            name=riyaldi&email=riyaldi%40gmail.com&password=helloworld
-//            eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLU03MnRBR3Bab3dvZm4zX0oiLCJpYXQiOjE2NjU4NjQ5NTN9.i50lxmamItKS2Vuo7tHeX3vXbMtX7TylYvRubTwezUs
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 _isLoading.value = false

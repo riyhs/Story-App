@@ -30,11 +30,10 @@ class SignUpViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _signUpResponse.value = response.body()
                 } else {
+                    _signUpResponse.value = response.body()
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
-
-//            name=riyaldi&email=riyaldi%40gmail.com&password=helloworld
 
             override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
                 _isLoading.value = false

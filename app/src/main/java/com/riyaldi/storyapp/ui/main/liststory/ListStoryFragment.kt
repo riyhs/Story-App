@@ -40,7 +40,6 @@ class ListStoryFragment : Fragment() {
         }
 
         val sharedPref = Preference.initPref(requireContext(), "onSignIn")
-        Toast.makeText(requireContext(), sharedPref.getString("token", "").toString(), Toast.LENGTH_LONG).show()
         listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
         listStoryViewModel.getStories().observe(requireActivity()) { data ->
             if (data != null) {

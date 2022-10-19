@@ -16,7 +16,7 @@ class ListStoryViewModel: ViewModel() {
     }
 
     private val _storiesResponse = MutableLiveData<StoriesResponse>()
-    val storiesResponse: LiveData<StoriesResponse> = _storiesResponse
+    private val storiesResponse: LiveData<StoriesResponse> = _storiesResponse
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading

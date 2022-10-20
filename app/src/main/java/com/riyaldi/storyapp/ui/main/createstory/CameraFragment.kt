@@ -1,8 +1,10 @@
 package com.riyaldi.storyapp.ui.main.createstory
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.Toast
@@ -13,6 +15,7 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentCameraBinding
 import com.riyaldi.storyapp.utils.createFile
@@ -48,7 +51,7 @@ class CameraFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-//        hideSystemUI()
+        hideSystemUI()
         startCamera()
     }
 
@@ -61,22 +64,16 @@ class CameraFragment : Fragment() {
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Gagal mengambil gambar.", Toast.LENGTH_SHORT).show()
                 }
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra("picture", photoFile)
-                    intent.putExtra(
-                        "isBackCamera",
-                        cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                    val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
+                    val bundle = Bundle()
+                    bundle.putParcelable("selected_image", savedUri)
+                    findNavController().navigate(
+                        R.id.action_cameraFragment_to_createStoryFragment,
+                        bundle
                     )
-//                    setResult(MainActivity.CAMERA_X_RESULT, intent)
-//                    finish()
-                    Toast.makeText(requireContext(), "Image Saved - not saved yet", Toast.LENGTH_SHORT).show()
                 }
             }
         )

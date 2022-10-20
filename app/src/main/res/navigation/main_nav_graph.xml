@@ -19,9 +19,19 @@
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"
-        android:name="com.riyaldi.storyapp.ui.main.DetailStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.detailstory.DetailStoryFragment"
         android:label="fragment_detail_story"
-        tools:layout="@layout/fragment_detail_story" />
+        tools:layout="@layout/fragment_detail_story" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="photo_url"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/createStoryFragment"
         android:name="com.riyaldi.storyapp.ui.main.CreateStoryFragment"

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.riyaldi.storyapp.R
@@ -26,9 +27,15 @@ class StoriesAdapter(private val stories: List<Story>) : RecyclerView.Adapter<St
                     }
                 }
 
-                setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailStoryFragment))
-
-
+                setOnClickListener {
+                    this.findNavController().navigate(
+                        ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
+                            item.name,
+                            item.description,
+                            item.photoUrl
+                        )
+                    )
+                }
             }
         }
     }

@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/createStoryFragment"
-        android:name="com.riyaldi.storyapp.ui.main.CreateStoryFragment"
+        android:name="com.riyaldi.storyapp.ui.main.createstory.CreateStoryFragment"
         android:label="fragment_create_story"
         tools:layout="@layout/fragment_create_story" />
 </navigation>

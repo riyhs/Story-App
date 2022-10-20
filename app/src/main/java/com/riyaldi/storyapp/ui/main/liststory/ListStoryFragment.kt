@@ -41,8 +41,8 @@ class ListStoryFragment : Fragment() {
         setupAdapter()
         rv_stories.adapter = StoriesAdapter(listOf(Story("", "", "", 0.0, 0.0, "", "")))
 
-//        binding.btDetailStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.detailStoryFragment))
-//        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+
         binding.fabCreateStory.setOnClickListener {
             Preference.logOut(requireContext())
         }

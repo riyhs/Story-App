@@ -43,10 +43,6 @@ class ListStoryFragment : Fragment() {
 
         binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
 
-        binding.fabCreateStory.setOnClickListener {
-            Preference.logOut(requireContext())
-        }
-
         val sharedPref = Preference.initPref(requireContext(), "onSignIn")
         listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
         listStoryViewModel.getStories().observe(requireActivity()) { data ->

@@ -54,10 +54,22 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_open_camera"
+        app:layout_constraintBottom_toTopOf="@+id/et_story_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
+
+    <EditText
+        android:id="@+id/et_story_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/bt_open_camera"
+        app:layout_constraintEnd_toEndOf="@+id/bt_submit_story"
+        app:layout_constraintStart_toStartOf="@+id/bt_submit_story" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

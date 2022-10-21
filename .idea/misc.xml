@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/drawable/ic_baseline_more_vert.xml" value="0.203" />
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/activity_auth.xml" value="0.25" />
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/card_stories.xml" value="0.25" />
@@ -13,6 +14,7 @@
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_login.xml" value="0.2359375" />
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_sign_up.xml" value="0.25" />
         <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/layout/fragment_splash.xml" value="0.25" />
+        <entry key="..\:/Dev/Learning/Android/Dicoding/Dicoding_PAAI/Submission/StoryApp/app/src/main/res/menu/main_menu.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>

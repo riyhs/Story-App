@@ -15,7 +15,9 @@
             app:destination="@id/detailStoryFragment" />
         <action
             android:id="@+id/action_listStoryFragment_to_createStoryFragment"
-            app:destination="@id/createStoryFragment" />
+            app:destination="@id/createStoryFragment"
+            app:popUpTo="@id/listStoryFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailStoryFragment"

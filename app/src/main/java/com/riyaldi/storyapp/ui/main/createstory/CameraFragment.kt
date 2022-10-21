@@ -1,12 +1,9 @@
 package com.riyaldi.storyapp.ui.main.createstory
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
@@ -15,11 +12,11 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentCameraBinding
 import com.riyaldi.storyapp.utils.createFile
-import java.lang.Exception
 
 class CameraFragment : Fragment() {
 
@@ -47,12 +44,6 @@ class CameraFragment : Fragment() {
 
             startCamera()
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        hideSystemUI()
-        startCamera()
     }
 
     private fun takePhoto() {
@@ -106,17 +97,43 @@ class CameraFragment : Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-    private fun hideSystemUI() {
+    private fun hideSystemUI(state: Boolean) {
         @Suppress("DEPRECATION")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            requireActivity().window.insetsController?.hide(WindowInsets.Type.statusBars())
+        if (state) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                requireActivity().window.insetsController?.hide(WindowInsets.Type.statusBars())
+            } else {
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                )
+            }
+            (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         } else {
-            requireActivity().window.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                requireActivity().window.insetsController?.show(WindowInsets.Type.statusBars())
+            } else {
+                requireActivity().window.clearFlags(
+                    WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN
+                )
+                requireActivity().window.setFlags(
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN
+                )
+            }
+            (requireActivity() as AppCompatActivity).supportActionBar?.show()
         }
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideSystemUI(true)
+        startCamera()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        hideSystemUI(false)
     }
 
     override fun onDestroyView() {

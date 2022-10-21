@@ -103,7 +103,7 @@ class CreateStoryFragment : Fragment() {
                 createStoryViewModel.createStoryResponse.observe(viewLifecycleOwner) {
                     if (it != null) {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        findNavController().popBackStack()
+                        findNavController().navigate(CreateStoryFragmentDirections.actionCreateStoryFragmentToListStoryFragment())
                     }
                 }
             } else {

@@ -15,7 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Camera"
-        app:layout_constraintBottom_toTopOf="@+id/bt_submit_story"
+        app:layout_constraintBottom_toTopOf="@+id/button_add"
         app:layout_constraintEnd_toStartOf="@+id/bt_open_gallery"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -35,13 +35,13 @@
         app:layout_constraintTop_toTopOf="@+id/bt_open_camera" />
 
     <Button
-        android:id="@+id/bt_submit_story"
+        android:id="@+id/button_add"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="32dp"
-        android:text="Button"
+        android:text="Submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -54,14 +54,14 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/et_story_description"
+        app:layout_constraintBottom_toTopOf="@+id/ed_add_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <EditText
-        android:id="@+id/et_story_description"
+        android:id="@+id/ed_add_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -69,7 +69,7 @@
         android:hint="Description"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/bt_open_camera"
-        app:layout_constraintEnd_toEndOf="@+id/bt_submit_story"
-        app:layout_constraintStart_toStartOf="@+id/bt_submit_story" />
+        app:layout_constraintEnd_toEndOf="@+id/button_add"
+        app:layout_constraintStart_toStartOf="@+id/button_add" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

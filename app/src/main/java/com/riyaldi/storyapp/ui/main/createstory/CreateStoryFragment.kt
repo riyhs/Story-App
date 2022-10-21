@@ -48,7 +48,7 @@ class CreateStoryFragment : Fragment() {
         binding.btOpenGallery.setOnClickListener{
             startGallery()
         }
-        binding.btSubmitStory.setOnClickListener{
+        binding.buttonAdd.setOnClickListener{
             uploadImage()
         }
 
@@ -88,7 +88,7 @@ class CreateStoryFragment : Fragment() {
     private fun uploadImage() {
         if (getFile != null) {
             val file = getFile as File
-            val descriptionText = binding.etStoryDescription.text
+            val descriptionText = binding.edAddDescription.text
             if (!descriptionText.isNullOrEmpty()) {
                 val description = descriptionText.toString().toRequestBody("text/plain".toMediaType())
                 val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())

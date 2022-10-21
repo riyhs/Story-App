@@ -39,8 +39,8 @@ class LoginFragment : Fragment() {
         binding.tvLoginDontHaveAccount.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.signUpFragment))
 
         binding.btLogin.setOnClickListener{
-            val email = binding.etLoginEmail.text.toString()
-            val password = binding.etLoginPassword.text.toString()
+            val email = binding.edLoginEmail.text.toString()
+            val password = binding.edLoginPassword.text.toString()
 
             loginViewModel.postLogin(email, password)
 

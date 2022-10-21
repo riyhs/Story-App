@@ -29,14 +29,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/et_signup_name"
+        android:id="@+id/ed_register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="name"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_email"
+        app:layout_constraintBottom_toTopOf="@+id/ed_register_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_chainStyle="packed" />
 
     <EditText
-        android:id="@+id/et_signup_email"
+        android:id="@+id/ed_register_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -53,14 +53,14 @@
         android:ems="10"
         android:hint="email"
         android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/et_signup_password"
+        app:layout_constraintBottom_toTopOf="@+id/ed_register_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_name" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
 
     <EditText
-        android:id="@+id/et_signup_password"
+        android:id="@+id/ed_register_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_email" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_email" />
 
     <TextView
         android:id="@+id/tv_signup_have_account"
@@ -85,6 +85,6 @@
         android:text="Login?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_signup_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_register_password" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

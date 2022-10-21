@@ -1,11 +1,9 @@
 package com.riyaldi.storyapp.ui.main.liststory
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
@@ -17,9 +15,9 @@ class StoriesAdapter(private val stories: List<Story>) : RecyclerView.Adapter<St
     inner class StoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Story) {
             with(itemView) {
-                tv_story_title.text = item.name
+                tv_item_name.text = item.name
                 tv_story_desc.text = item.description
-                iv_story_card.apply {
+                iv_item_photo.apply {
                     scaleType = ImageView.ScaleType.CENTER_CROP
                     load(item.photoUrl) {
                         crossfade(750)

@@ -46,7 +46,9 @@ class SignUpFragment : Fragment() {
         }
 
         signUpViewModel.signUpResponse.observe(requireActivity()) {
-            processSignUp(it)
+            if (it != null) {
+                processSignUp(it)
+            }
         }
     }
 
@@ -55,7 +57,7 @@ class SignUpFragment : Fragment() {
             Toast.makeText(requireContext(), "Gagal Sign Up", Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(requireContext(), "Sign Up berhasil, silahkan login!", Toast.LENGTH_LONG).show()
-            findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
+            findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment(isFromSignUp = true))
         }
     }
 

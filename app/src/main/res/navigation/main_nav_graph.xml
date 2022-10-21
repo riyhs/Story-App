@@ -44,6 +44,11 @@
             android:name="isBackCamera"
             app:argType="boolean"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_createStoryFragment_to_listStoryFragment"
+            app:destination="@id/listStoryFragment"
+            app:popUpTo="@id/listStoryFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/cameraFragment"

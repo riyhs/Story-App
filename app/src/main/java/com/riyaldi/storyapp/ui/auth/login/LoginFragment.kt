@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentLoginBinding
 import com.riyaldi.storyapp.model.login.LoginResponse
@@ -46,8 +48,15 @@ class LoginFragment : Fragment() {
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
+        val isFromSignUp: Boolean? = arguments?.getBoolean("is_from_sign_up")
+        if (isFromSignUp != null && isFromSignUp) {
+            onBackPressed()
+        }
+
         loginViewModel.loginResponse.observe(requireActivity()) { data ->
-            processLogin(data)
+            if (data != null) {
+                processLogin(data)
+            }
         }
     }
 
@@ -59,6 +68,16 @@ class LoginFragment : Fragment() {
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)
             requireActivity().finish()
         }
+    }
+
+    private fun onBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                }
+            })
     }
 
     override fun onDestroyView() {

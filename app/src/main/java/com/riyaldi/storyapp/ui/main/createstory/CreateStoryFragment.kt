@@ -14,6 +14,7 @@ import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentCreateStoryBinding
 import com.riyaldi.storyapp.utils.Preference
@@ -102,6 +103,7 @@ class CreateStoryFragment : Fragment() {
                 createStoryViewModel.createStoryResponse.observe(viewLifecycleOwner) {
                     if (it != null) {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
+                        findNavController().popBackStack()
                     }
                 }
             } else {

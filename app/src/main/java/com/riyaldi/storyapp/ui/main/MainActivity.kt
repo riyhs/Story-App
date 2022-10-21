@@ -1,6 +1,7 @@
 package com.riyaldi.storyapp.ui.main
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.ActivityMainBinding
+import com.riyaldi.storyapp.ui.auth.AuthActivity
 import com.riyaldi.storyapp.utils.Preference
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +61,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId){
-            R.id.action_logout_menu -> Preference.logOut(this)
+            R.id.action_logout_menu ->  {
+                Preference.logOut(this)
+                val intent = Intent(this, AuthActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }

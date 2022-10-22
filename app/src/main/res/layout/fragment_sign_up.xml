@@ -59,7 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
 
-    <EditText
+    <com.riyaldi.storyapp.ui.customview.CustomEditText
         android:id="@+id/ed_register_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

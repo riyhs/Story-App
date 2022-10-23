@@ -4,38 +4,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.google.android.material.card.MaterialCardView
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.model.stories.Story
 import kotlinx.android.synthetic.main.card_stories.view.*
 
-class StoriesAdapter(private val stories: List<Story>) : RecyclerView.Adapter<StoriesAdapter.StoriesViewHolder>() {
+class StoriesAdapter(private val stories: List<Story>, listener: StorySelectedListener) : RecyclerView.Adapter<StoriesAdapter.StoriesViewHolder>() {
+    private var onClickListener: StorySelectedListener = listener
+
     inner class StoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val storyImageView: ImageView = itemView.findViewById(R.id.iv_item_photo)
+
         fun bind(item: Story) {
             with(itemView) {
                 tv_item_name.text = item.name
                 tv_story_desc.text = item.description
                 iv_item_photo.apply {
+                    transitionName = item.photoUrl
                     scaleType = ImageView.ScaleType.CENTER_CROP
                     load(item.photoUrl) {
-                        crossfade(750)
+                        allowHardware(false)
                         build()
                     }
                 }
 
-                setOnClickListener {
-                    this.findNavController().navigate(
-                        ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
-                            item.name,
-                            item.description,
-                            item.photoUrl
-                        )
-                    )
+                itemView.setOnClickListener{
+                    onClickListener.onStorySelected(item.name, item.description, item.photoUrl, storyImageView)
                 }
+
+//                setOnClickListener {
+//                    this.findNavController().navigate(
+//                        ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
+//                            item.name,
+//                            item.description,
+//                            item.photoUrl
+//                        )
+//                    )
+//                }
             }
         }
+    }
+
+    interface StorySelectedListener {
+        fun onStorySelected(name: String, description: String, url: String, storyImageView: ImageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewHolder {

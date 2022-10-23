@@ -1,8 +1,12 @@
 <resources>
     <string name="app_name">Story App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="more_menu">More Menu</string>
     <string name="log_out">Log Out</string>
     <string name="create_new_story">create new story</string>
+
+    <string name="storyImage">image %s</string>
+    <string name="storyDescription">desc %s</string>
+    <string name="storyName">name %s</string>
+    <string name="image_detail">Image detail</string>
 </resources>

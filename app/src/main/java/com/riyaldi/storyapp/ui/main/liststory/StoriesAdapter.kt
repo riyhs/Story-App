@@ -3,53 +3,57 @@ package com.riyaldi.storyapp.ui.main.liststory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
-import com.riyaldi.storyapp.R
+import com.riyaldi.storyapp.databinding.CardStoriesBinding
 import com.riyaldi.storyapp.model.stories.Story
-import kotlinx.android.synthetic.main.card_stories.view.*
 
-class StoriesAdapter(private val stories: List<Story>) : RecyclerView.Adapter<StoriesAdapter.StoriesViewHolder>() {
-    inner class StoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Story) {
-            with(itemView) {
-                tv_item_name.text = item.name
-                tv_story_desc.text = item.description
-                iv_item_photo.apply {
-                    scaleType = ImageView.ScaleType.CENTER_CROP
-                    load(item.photoUrl) {
-                        crossfade(750)
-                        build()
-                    }
-                }
-
-                setOnClickListener {
-                    this.findNavController().navigate(
-                        ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
-                            item.name,
-                            item.description,
-                            item.photoUrl
-                        )
-                    )
-                }
-            }
-        }
+class StoriesAdapter(private val callback: (story: Story, imageView: View, nameView: View, descView: View) -> Unit)
+    : ListAdapter<Story, StoriesViewHolder>(object : DiffUtil.ItemCallback<Story>() {
+    override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+        return oldItem == newItem
     }
 
+    override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+        return oldItem.id == newItem.id
+    }
+}) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(
-            R.layout.card_stories,
-            parent,
-            false
-        )
+        val view = CardStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StoriesViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
-        holder.bind(stories[position])
+        val item = getItem(position)
+        holder.view.root.setOnClickListener{
+            callback.invoke(
+                item,
+                holder.view.ivItemPhoto,
+                holder.view.tvItemName,
+                holder.view.tvStoryDesc,
+            )
+        }
+        holder.bind(item)
     }
+}
 
-    override fun getItemCount(): Int = stories.size
+class StoriesViewHolder(val view: CardStoriesBinding) : RecyclerView.ViewHolder(view.root) {
+    fun bind(item: Story) {
+        view.story = item
+
+        val drawable = CircularProgressDrawable(view.root.context)
+        drawable.strokeWidth = 5f
+        drawable.centerRadius = 30f
+        drawable.start()
+
+        view.ivItemPhoto.load(item.photoUrl) {
+            placeholder(drawable)
+            allowHardware(false)
+        }
+
+        view.executePendingBindings()
+    }
 }

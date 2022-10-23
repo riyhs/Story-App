@@ -1,31 +1,27 @@
 package com.riyaldi.storyapp.ui.main.liststory
 
 import android.os.Bundle
-import android.util.Log
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
-import com.riyaldi.storyapp.model.stories.Story
 import com.riyaldi.storyapp.utils.Preference
-import kotlinx.android.synthetic.main.fragment_list_story.*
 
 class ListStoryFragment : Fragment() {
 
     private var _binding: FragmentListStoryBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var storiesAdapter: StoriesAdapter
+    private lateinit var adapter: StoriesAdapter
     private val listStoryViewModel: ListStoryViewModel by viewModels()
 
     override fun onCreateView(
@@ -38,62 +34,58 @@ class ListStoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        storiesAdapter = StoriesAdapter(
-            listOf(Story("", "", "", 0.0, 0.0, "", "")),
-            object : StoriesAdapter.StorySelectedListener {
-                override fun onStorySelected(name: String, description: String, url: String, storyImageView: ImageView) {}
-            }
-        )
-
-        setupAdapter()
-
-        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+        sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
         val sharedPref = Preference.initPref(requireContext(), "onSignIn")
+
         listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
         listStoryViewModel.getStories().observe(requireActivity()) { data ->
             if (data != null) {
-                rv_stories.adapter = StoriesAdapter(
-                    data.listStory,
-                    object : StoriesAdapter.StorySelectedListener {
-                        override fun onStorySelected(
-                            name: String,
-                            description: String,
-                            url: String,
-                            storyImageView: ImageView
-                        ) {
-                            val extras = FragmentNavigatorExtras(
-                                storyImageView to url
-                            )
-                            val action = ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
-                                name = name,
-                                description = description,
-                                photoUrl = url
-                            )
-                            findNavController().navigate(action, extras)
-                        }
-                    }
-                )
+                adapter.submitList(data.listStory)
             }
         }
+
+        setupAdapter()
+        adapter = StoriesAdapter{story, imageView, nameView, descView ->
+            val action = ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
+                id = story.id,
+                name = story.name,
+                description = story.description,
+                photoUrl = story.photoUrl
+            )
+
+            findNavController()
+                .navigate(action,
+                    FragmentNavigator.Extras.Builder()
+                        .addSharedElements(
+                            mapOf(
+                                imageView to imageView.transitionName,
+                                nameView to nameView.transitionName,
+                                descView to descView.transitionName,
+                            )
+                        ).build()
+                    )
+        }
+
+        binding.rvStories.adapter = adapter
+        postponeEnterTransition()
+
+        binding.rvStories.viewTreeObserver
+            .addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
+
+        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
 
         onBackPressed()
     }
 
     private fun setupAdapter() {
-        val lm = LinearLayoutManager(context)
-        lm.orientation = LinearLayoutManager.VERTICAL
-
-        postponeEnterTransition()
-        rv_stories.apply {
-            setHasFixedSize(true)
-            layoutManager = lm
-            adapter = storiesAdapter
-            viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
-                true
-            }
-        }
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        binding.rvStories.setHasFixedSize(true)
+        binding.rvStories.layoutManager = layoutManager
     }
 
     private fun onBackPressed() {

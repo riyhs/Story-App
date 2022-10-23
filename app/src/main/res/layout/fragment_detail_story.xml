@@ -1,44 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scrollView"
-    tools:context=".ui.main.detailstory.DetailStoryFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="story"
+            type="com.riyaldi.storyapp.model.stories.Story" />
+    </data>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        tools:context=".ui.main.detailstory.DetailStoryFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_detail_photo"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            tools:src="@tools:sample/avatars" />
+            android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/tv_detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="32dp"
-            android:text="TextView" />
+            <ImageView
+                android:id="@+id/iv_detail_photo"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:scaleType="fitCenter"
+                android:transitionName="@{@string/storyImage(String.valueOf(story.id))}"
+                app:loadImage="@{story.photoUrl}"
+                tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/tv_detail_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
-            android:gravity="center_horizontal"
-            android:text="TextView" />
-    </LinearLayout>
-</ScrollView>
+            <TextView
+                android:id="@+id/tv_detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="32dp"
+                android:transitionName="@{@string/storyName(String.valueOf(story.id))}"
+                android:text="@{story.name}"/>
+
+            <TextView
+                android:id="@+id/tv_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:gravity="center_horizontal"
+                android:transitionName="@{@string/storyDescription(String.valueOf(story.id))}"
+                android:text="@{story.name}"/>
+        </LinearLayout>
+    </ScrollView>
+</layout>

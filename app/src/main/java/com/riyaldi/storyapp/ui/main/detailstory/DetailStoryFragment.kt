@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.transition.Transition
 import androidx.transition.TransitionInflater
-import coil.load
+import coil.imageLoader
+import coil.request.ImageRequest
 import com.riyaldi.storyapp.databinding.FragmentDetailStoryBinding
-import kotlinx.android.synthetic.main.fragment_detail_story.*
-import kotlinx.android.synthetic.main.fragment_list_story.*
+import com.riyaldi.storyapp.model.stories.Story
 
 class DetailStoryFragment : Fragment() {
 
@@ -22,6 +21,7 @@ class DetailStoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailStoryBinding.inflate(inflater, container, false)
+        postponeEnterTransition()
         return binding.root
     }
 
@@ -29,24 +29,32 @@ class DetailStoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
 
-        val imageUrl = arguments?.getString("photo_url")
+        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
 
-        iv_detail_photo.apply {
-            transitionName = imageUrl
-            load(imageUrl){
-                allowHardware(false)
-            }
-        }
+        binding.story = Story(
+            createdAt = "",
+            description = arguments?.getString("description") ?: "",
+            id = arguments?.getString("id") ?: "",
+            lat = arguments?.getDouble("lat") ?: 0.0,
+            lon = arguments?.getDouble("lon") ?: 0.0,
+            name = arguments?.getString("name") ?: "",
+            photoUrl = arguments?.getString("photo_url") ?: ""
+        )
 
-//        binding.ivDetailPhoto.apply {
-//            transitionName = imageUrl
-//            load(imageUrl){
-//                allowHardware(false)
-//
-//            }
-//        }
-        binding.tvDetailName.text = arguments?.getString("name")
-        binding.tvDetailDescription.text = arguments?.getString("description")
+        val request = ImageRequest.Builder(requireContext())
+            .data(arguments?.getString("photo_url"))
+            .target(
+                onSuccess = {
+                    startPostponedEnterTransition()
+                },
+                onError = {
+                    startPostponedEnterTransition()
+                }
+            )
+            .build()
+        requireActivity().application.imageLoader.enqueue(request)
+
+        binding.executePendingBindings()
     }
 
     override fun onDestroyView() {

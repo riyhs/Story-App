@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'kotlin-android-extensions'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -32,7 +33,7 @@ android {
         jvmTarget = '1.8'
     }
 
-    viewBinding {
+    dataBinding {
         enabled = true
     }
 }
@@ -56,6 +57,7 @@ dependencies {
     implementation "androidx.camera:camera-camera2:1.1.0-beta02"
     implementation "androidx.camera:camera-lifecycle:1.1.0-beta02"
     implementation "androidx.camera:camera-view:1.1.0-beta02"
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

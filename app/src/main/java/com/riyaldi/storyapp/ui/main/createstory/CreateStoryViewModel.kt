@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.riyaldi.storyapp.model.signup.SignUpResponse
 import com.riyaldi.storyapp.model.stories.PostStoryResponse
 import com.riyaldi.storyapp.network.ApiConfig
 import okhttp3.MultipartBody

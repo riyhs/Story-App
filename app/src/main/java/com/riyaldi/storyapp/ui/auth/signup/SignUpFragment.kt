@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -41,6 +43,10 @@ class SignUpFragment : Fragment() {
 
             signUpViewModel.postSignUp(name, email, password)
 
+            signUpViewModel.isLoading.observe(viewLifecycleOwner) {
+                showLoading(it)
+            }
+
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
@@ -59,6 +65,16 @@ class SignUpFragment : Fragment() {
             Toast.makeText(requireContext(), "Sign Up berhasil, silahkan login!", Toast.LENGTH_LONG).show()
             findNavController().navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment(isFromSignUp = true))
         }
+    }
+
+    private fun showLoading(state: Boolean) {
+        binding.pbCreateSignup.isVisible = state
+        binding.edRegisterEmail.isInvisible = state
+        binding.edRegisterName.isInvisible = state
+        binding.edRegisterPassword.isInvisible = state
+        binding.textView2.isInvisible = state
+        binding.tvSignupHaveAccount.isInvisible = state
+        binding.btSignUp.isInvisible = state
     }
 
     override fun onDestroyView() {

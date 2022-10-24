@@ -2,18 +2,18 @@ package com.riyaldi.storyapp.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import coil.load
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentLoginBinding
 import com.riyaldi.storyapp.model.login.LoginResponse
@@ -58,6 +58,10 @@ class LoginFragment : Fragment() {
                 processLogin(data)
             }
         }
+
+        loginViewModel.isLoading.observe(requireActivity()) {
+            showLoading(it)
+        }
     }
 
     private fun processLogin(data: LoginResponse) {
@@ -78,6 +82,15 @@ class LoginFragment : Fragment() {
                     requireActivity().finish()
                 }
             })
+    }
+
+    private fun showLoading(state: Boolean) {
+        binding.pbLogin.isVisible = state
+        binding.edLoginEmail.isInvisible = state
+        binding.edLoginPassword.isInvisible = state
+        binding.btLogin.isInvisible = state
+        binding.textView6.isInvisible = state
+        binding.tvLoginDontHaveAccount.isInvisible = state
     }
 
     override fun onDestroyView() {

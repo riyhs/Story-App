@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toFile
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -18,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentCreateStoryBinding
 import com.riyaldi.storyapp.utils.Preference
+import com.riyaldi.storyapp.utils.reduceFileImage
 import com.riyaldi.storyapp.utils.rotateBitmap
 import com.riyaldi.storyapp.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
@@ -40,7 +43,6 @@ class CreateStoryFragment : Fragment() {
         _binding = FragmentCreateStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -62,6 +64,10 @@ class CreateStoryFragment : Fragment() {
                 isBackCamera
             )
             binding.ivImagePreview.setImageBitmap(result)
+        }
+
+        createStoryViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
         }
     }
 
@@ -87,7 +93,8 @@ class CreateStoryFragment : Fragment() {
 
     private fun uploadImage() {
         if (getFile != null) {
-            val file = getFile as File
+            showLoading(true)
+            val file = reduceFileImage(getFile as File)
             val descriptionText = binding.edAddDescription.text
             if (!descriptionText.isNullOrEmpty()) {
                 val description = descriptionText.toString().toRequestBody("text/plain".toMediaType())
@@ -112,6 +119,15 @@ class CreateStoryFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun showLoading(state: Boolean) {
+        binding.pbCreateStory.isVisible = state
+        binding.edAddDescription.isInvisible = state
+        binding.ivImagePreview.isInvisible = state
+        binding.btOpenCamera.isInvisible = state
+        binding.btOpenGallery.isInvisible = state
+        binding.buttonAdd.isInvisible = state
     }
 
     override fun onDestroyView() {

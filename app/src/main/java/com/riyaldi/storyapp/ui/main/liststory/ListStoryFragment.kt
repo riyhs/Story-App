@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -46,7 +48,23 @@ class ListStoryFragment : Fragment() {
             }
         }
 
+        listStoryViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
         setupAdapter()
+
+        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
+
+        onBackPressed()
+    }
+
+    private fun setupAdapter() {
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        binding.rvStories.setHasFixedSize(true)
+        binding.rvStories.layoutManager = layoutManager
+
         adapter = StoriesAdapter{story, imageView, nameView, descView ->
             val action = ListStoryFragmentDirections.actionListStoryFragmentToDetailStoryFragment(
                 id = story.id,
@@ -65,7 +83,7 @@ class ListStoryFragment : Fragment() {
                                 descView to descView.transitionName,
                             )
                         ).build()
-                    )
+                )
         }
 
         binding.rvStories.adapter = adapter
@@ -75,17 +93,6 @@ class ListStoryFragment : Fragment() {
                 startPostponedEnterTransition()
                 true
             }
-
-        binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
-
-        onBackPressed()
-    }
-
-    private fun setupAdapter() {
-        val layoutManager = LinearLayoutManager(context)
-        layoutManager.orientation = LinearLayoutManager.VERTICAL
-        binding.rvStories.setHasFixedSize(true)
-        binding.rvStories.layoutManager = layoutManager
     }
 
     private fun onBackPressed() {
@@ -94,6 +101,12 @@ class ListStoryFragment : Fragment() {
                 requireActivity().finish()
             }
         })
+    }
+
+    private fun showLoading(state: Boolean) {
+        binding.pbListStory.isVisible = state
+        binding.rvStories.isInvisible = state
+        binding.fabCreateStory.isInvisible = state
     }
 
     override fun onDestroyView() {

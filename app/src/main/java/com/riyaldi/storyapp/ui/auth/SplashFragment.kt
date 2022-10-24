@@ -14,6 +14,10 @@ import com.riyaldi.storyapp.utils.Preference
 
 class SplashFragment : Fragment() {
 
+    companion object {
+        private const val DURATION: Long = 1500
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,11 +37,11 @@ class SplashFragment : Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(action)
                 requireActivity().finish()
-            }, 750)
+            }, DURATION)
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
                 findNavController().navigate(action)
-            }, 750)
+            }, DURATION)
         }
     }
 }

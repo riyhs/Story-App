@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -42,16 +43,17 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="18sp"
+                android:text="@{story.name}"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 android:transitionName="@{@string/storyName(String.valueOf(story.id))}"
-                android:text="@{story.name}"
                 app:layout_constraintBottom_toTopOf="@+id/tv_story_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/iv_item_photo"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Name" />
 
             <TextView
                 android:id="@+id/tv_story_desc"
@@ -61,13 +63,14 @@
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
                 android:maxLines="3"
+                android:text="@{story.description}"
                 android:transitionName="@{@string/storyDescription(String.valueOf(story.id))}"
-                android:text="@{@string/storyDescription(String.valueOf(story.id))}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@+id/tv_item_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_item_name" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
+                tools:text="Description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

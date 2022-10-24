@@ -29,6 +29,7 @@ class ListStoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentListStoryBinding.inflate(inflater, container, false)
+        postponeEnterTransition()
         return binding.root
     }
 
@@ -68,7 +69,6 @@ class ListStoryFragment : Fragment() {
         }
 
         binding.rvStories.adapter = adapter
-        postponeEnterTransition()
 
         binding.rvStories.viewTreeObserver
             .addOnPreDrawListener {

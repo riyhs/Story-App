@@ -29,8 +29,6 @@ class DetailStoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
 
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-
         binding.story = Story(
             createdAt = "",
             description = arguments?.getString("description") ?: "",
@@ -52,6 +50,7 @@ class DetailStoryFragment : Fragment() {
                 }
             )
             .build()
+
         requireActivity().application.imageLoader.enqueue(request)
 
         binding.executePendingBindings()

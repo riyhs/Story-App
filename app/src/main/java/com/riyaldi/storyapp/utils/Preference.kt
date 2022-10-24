@@ -19,12 +19,6 @@ object Preference {
         editor.apply()
     }
 
-    fun saveStatus(status: String, context: Context) {
-        val editor = editorPreference(context, "onSignIn")
-        editor.putString("status", status)
-        editor.apply()
-    }
-
     fun logOut(context: Context) {
         val editor = editorPreference(context, "onSignIn")
         editor.remove("token")

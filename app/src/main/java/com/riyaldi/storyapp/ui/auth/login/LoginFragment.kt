@@ -2,6 +2,7 @@ package com.riyaldi.storyapp.ui.auth.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,9 +55,7 @@ class LoginFragment : Fragment() {
         }
 
         loginViewModel.loginResponse.observe(requireActivity()) { data ->
-            if (data != null) {
-                processLogin(data)
-            }
+            processLogin(data)
         }
 
         loginViewModel.isLoading.observe(requireActivity()) {
@@ -66,7 +65,7 @@ class LoginFragment : Fragment() {
 
     private fun processLogin(data: LoginResponse) {
         if (data.error) {
-            Toast.makeText(requireContext(), "Gagal Login", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), data.message, Toast.LENGTH_LONG).show()
         } else {
             Preference.saveToken(data.loginResult.token, requireContext())
             findNavController().navigate(R.id.action_loginFragment_to_mainActivity)

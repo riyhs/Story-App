@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.riyaldi.storyapp.model.login.LoginResponse
+import com.riyaldi.storyapp.model.login.LoginResult
 import com.riyaldi.storyapp.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,7 +31,7 @@ class LoginViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     _loginResponse.value = response.body()
                 } else {
-                    _loginResponse.value = response.body()
+                    _loginResponse.value = LoginResponse(true, message = "Password / Email Salah", loginResult = LoginResult("", "", ""))
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }

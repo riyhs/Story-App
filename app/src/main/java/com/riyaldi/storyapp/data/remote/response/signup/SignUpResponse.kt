@@ -1,13 +1,11 @@
-package com.riyaldi.storyapp.model.login
+package com.riyaldi.storyapp.data.remote.response.signup
 
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class SignUpResponse(
     @SerializedName("error")
     val error: Boolean,
-    @SerializedName("loginResult")
-    val loginResult: LoginResult,
     @SerializedName("message")
     val message: String
 )

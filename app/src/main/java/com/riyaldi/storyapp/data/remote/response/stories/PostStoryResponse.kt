@@ -1,9 +1,8 @@
-package com.riyaldi.storyapp.model.signup
-
+package com.riyaldi.storyapp.data.remote.response.stories
 
 import com.google.gson.annotations.SerializedName
 
-data class SignUpResponse(
+data class PostStoryResponse(
     @SerializedName("error")
     val error: Boolean,
     @SerializedName("message")

@@ -15,7 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
-import com.riyaldi.storyapp.model.signup.SignUpResponse
+import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
 
 class SignUpFragment : Fragment() {
 

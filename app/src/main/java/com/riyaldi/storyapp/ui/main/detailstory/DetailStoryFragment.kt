@@ -9,7 +9,7 @@ import androidx.transition.TransitionInflater
 import coil.imageLoader
 import coil.request.ImageRequest
 import com.riyaldi.storyapp.databinding.FragmentDetailStoryBinding
-import com.riyaldi.storyapp.model.stories.Story
+import com.riyaldi.storyapp.data.remote.response.stories.Story
 
 class DetailStoryFragment : Fragment() {
 

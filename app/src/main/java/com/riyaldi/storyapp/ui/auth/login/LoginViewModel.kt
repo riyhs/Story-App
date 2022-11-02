@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.riyaldi.storyapp.model.login.LoginResponse
-import com.riyaldi.storyapp.model.login.LoginResult
-import com.riyaldi.storyapp.network.ApiConfig
+import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
+import com.riyaldi.storyapp.data.remote.response.login.LoginResult
+import com.riyaldi.storyapp.data.remote.network.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

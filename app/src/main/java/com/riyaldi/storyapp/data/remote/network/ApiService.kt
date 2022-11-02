@@ -1,9 +1,9 @@
-package com.riyaldi.storyapp.network
+package com.riyaldi.storyapp.data.remote.network
 
-import com.riyaldi.storyapp.model.login.LoginResponse
-import com.riyaldi.storyapp.model.signup.SignUpResponse
-import com.riyaldi.storyapp.model.stories.PostStoryResponse
-import com.riyaldi.storyapp.model.stories.StoriesResponse
+import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
+import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
+import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
+import com.riyaldi.storyapp.data.remote.response.stories.StoriesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call

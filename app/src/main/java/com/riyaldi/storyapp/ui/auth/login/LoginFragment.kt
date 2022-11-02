@@ -16,7 +16,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentLoginBinding
-import com.riyaldi.storyapp.model.login.LoginResponse
+import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
 import com.riyaldi.storyapp.utils.Preference
 
 class LoginFragment : Fragment() {

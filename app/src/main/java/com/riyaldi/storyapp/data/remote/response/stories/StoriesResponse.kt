@@ -1,4 +1,4 @@
-package com.riyaldi.storyapp.model.stories
+package com.riyaldi.storyapp.data.remote.response.stories
 
 
 import com.google.gson.annotations.SerializedName

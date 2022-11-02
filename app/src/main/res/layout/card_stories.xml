@@ -6,7 +6,7 @@
     <data>
         <variable
             name="story"
-            type="com.riyaldi.storyapp.model.stories.Story" />
+            type="com.riyaldi.storyapp.data.remote.response.stories.Story" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

@@ -1,4 +1,4 @@
-package com.riyaldi.storyapp.network
+package com.riyaldi.storyapp.data.remote.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

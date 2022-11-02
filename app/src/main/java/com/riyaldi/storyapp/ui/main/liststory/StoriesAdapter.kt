@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
 import com.riyaldi.storyapp.databinding.CardStoriesBinding
-import com.riyaldi.storyapp.model.stories.Story
+import com.riyaldi.storyapp.data.remote.response.stories.Story
 
 class StoriesAdapter(private val callback: (story: Story, imageView: View, nameView: View, descView: View) -> Unit)
     : ListAdapter<Story, StoriesViewHolder>(object : DiffUtil.ItemCallback<Story>() {

@@ -2,6 +2,8 @@ package com.riyaldi.storyapp.ui.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -12,20 +14,28 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.data.remote.response.stories.Story
 import com.riyaldi.storyapp.databinding.ActivityMapBinding
+import com.riyaldi.storyapp.ui.main.liststory.ListStoryViewModel
+import com.riyaldi.storyapp.utils.Preference
 
 class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapBinding
 
+    private val listStoryViewModel: ListStoryViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPref = Preference.initPref(this, "onSignIn")
+
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        listStoryViewModel.setStories(sharedPref.getString("token", "").toString(), 1)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -45,19 +55,17 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
 
-        addManyMarker()
+        listStoryViewModel.getStories().observe(this) { data ->
+            if (data != null) {
+                addManyMarker(data.listStory)
+            }
+        }
+
     }
 
     private val boundsBuilder = LatLngBounds.Builder()
 
-    private fun addManyMarker() {
-        val stories = listOf(
-            Story("","Floating Market Lembang", "id", -6.8168954,107.6151046,"Floating Market Lembang", "photo"),
-            Story("","The Great Asia Africa", "id",-6.8331128,107.6048483,"The Great Asia Africa", "photo"),
-            Story("","Rabbit Town", "id",-6.8668408, 107.608081,"Rabbit Town", "photo"),
-            Story("","Alun-Alun Kota Bandung", "id",-6.9218518,107.6025294,"Alun-Alun Kota Bandung", "photo"),
-            Story("","Orchid Forest Cikole", "id",-6.780725, 107.637409,"Orchid Forest Cikole", "photo"),
-        )
+    private fun addManyMarker(stories: List<Story>) {
         stories.forEach { tourism ->
             val latLng = LatLng(tourism.lat, tourism.lon)
             mMap.addMarker(MarkerOptions().position(latLng).title(tourism.name))
@@ -65,6 +73,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         }
 
         val bounds: LatLngBounds = boundsBuilder.build()
+
         mMap.animateCamera(
             CameraUpdateFactory.newLatLngBounds(
                 bounds,

@@ -21,9 +21,9 @@ class ListStoryViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun setStories(token: String) {
+    fun setStories(token: String, location: Int = 0) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService(token).getStories()
+        val client = ApiConfig.getApiService(token).getStories(location)
         client.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(call: Call<StoriesResponse>, response: Response<StoriesResponse>) {
                 _isLoading.value = false

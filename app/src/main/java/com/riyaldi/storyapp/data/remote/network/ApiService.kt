@@ -26,7 +26,7 @@ interface ApiService {
     ): Call<LoginResponse>
 
     @GET("stories")
-    fun getStories() : Call<StoriesResponse>
+    fun getStories(@Query("location") location: Int) : Call<StoriesResponse>
 
     @Multipart
     @POST("stories")

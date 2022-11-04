@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.ActivityMainBinding
 import com.riyaldi.storyapp.ui.auth.AuthActivity
+import com.riyaldi.storyapp.ui.map.MapActivity
 import com.riyaldi.storyapp.utils.Preference
 
 class MainActivity : AppCompatActivity() {
@@ -66,6 +67,10 @@ class MainActivity : AppCompatActivity() {
                     .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
                 finish()
+            }
+            R.id.action_map -> {
+                val intent = Intent(this, MapActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

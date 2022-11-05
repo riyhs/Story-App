@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isInvisible
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -40,23 +38,9 @@ class ListStoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
-//        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
-//
-//        listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
-//        listStoryViewModel.getStories().observe(requireActivity()) { data ->
-//            if (data != null) {
-//                adapter.submitList(data.listStory)
-//            }
-//        }
-//
-//        listStoryViewModel.isLoading.observe(viewLifecycleOwner) {
-//            showLoading(it)
-//        }
-
-
-        listStoryViewModel.stories.observe(requireActivity()) { data ->
+        listStoryViewModel.stories.observe(viewLifecycleOwner) { data ->
             if (data != null) {
-                adapter.submitData(lifecycle , data)
+                adapter.submitData(viewLifecycleOwner.lifecycle , data)
             }
         }
 
@@ -68,7 +52,6 @@ class ListStoryFragment : Fragment() {
     private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        binding.rvStories.setHasFixedSize(true)
         binding.rvStories.layoutManager = layoutManager
 
         adapter = StoriesAdapter{story, imageView, nameView, descView ->
@@ -110,12 +93,6 @@ class ListStoryFragment : Fragment() {
                 requireActivity().finish()
             }
         })
-    }
-
-    private fun showLoading(state: Boolean) {
-        binding.pbListStory.isVisible = state
-        binding.rvStories.isInvisible = state
-        binding.fabCreateStory.isInvisible = state
     }
 
     override fun onDestroyView() {

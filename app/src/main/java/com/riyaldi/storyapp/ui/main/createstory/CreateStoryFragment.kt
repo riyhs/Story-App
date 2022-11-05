@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,6 +60,7 @@ class CreateStoryFragment : Fragment() {
             val uri: Uri = fileUri as Uri
             getFile = uri.toFile()
             val isBackCamera = arguments?.get("isBackCamera") as Boolean
+            Log.d("ISBACKCAMERA", isBackCamera.toString())
             val result = rotateBitmap(
                 BitmapFactory.decodeFile(uri.path),
                 isBackCamera

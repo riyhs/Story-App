@@ -54,12 +54,13 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
                 .snippet("Batik Kumeli No.50")
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
-
 //        listStoryViewModel.getStories().observe(this) { data ->
 //            if (data != null) {
 //                addManyMarker(data.listStory)
 //            }
 //        }
+
+    // todo 1 : create its own viewmodel
 
     }
 

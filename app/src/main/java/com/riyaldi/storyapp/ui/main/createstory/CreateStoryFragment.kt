@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentCreateStoryBinding
-import com.riyaldi.storyapp.utils.Preference
 import com.riyaldi.storyapp.utils.reduceFileImage
 import com.riyaldi.storyapp.utils.rotateBitmap
 import com.riyaldi.storyapp.utils.uriToFile
@@ -58,13 +56,12 @@ class CreateStoryFragment : Fragment() {
         val fileUri = arguments?.get("selected_image")
         if (fileUri != null) {
             val uri: Uri = fileUri as Uri
-            getFile = uri.toFile()
             val isBackCamera = arguments?.get("isBackCamera") as Boolean
-            Log.d("ISBACKCAMERA", isBackCamera.toString())
             val result = rotateBitmap(
                 BitmapFactory.decodeFile(uri.path),
                 isBackCamera
             )
+            getFile = uri.toFile()
             binding.ivImagePreview.setImageBitmap(result)
         }
 

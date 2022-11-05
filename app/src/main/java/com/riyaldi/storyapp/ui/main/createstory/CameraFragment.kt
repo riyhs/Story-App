@@ -60,10 +60,11 @@ class CameraFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     val savedUri = output.savedUri ?: Uri.fromFile(photoFile)
                     val bundle = Bundle()
+                    bundle.putBoolean("isBackCamera", cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
                     bundle.putParcelable("selected_image", savedUri)
                     findNavController().navigate(
                         R.id.action_cameraFragment_to_createStoryFragment,
-                        bundle
+                        bundle,
                     )
                 }
             }

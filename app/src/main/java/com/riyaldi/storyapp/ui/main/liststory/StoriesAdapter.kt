@@ -3,16 +3,16 @@ package com.riyaldi.storyapp.ui.main.liststory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import coil.load
-import com.riyaldi.storyapp.databinding.CardStoriesBinding
 import com.riyaldi.storyapp.data.remote.response.stories.Story
+import com.riyaldi.storyapp.databinding.CardStoriesBinding
 
 class StoriesAdapter(private val callback: (story: Story, imageView: View, nameView: View, descView: View) -> Unit)
-    : ListAdapter<Story, StoriesViewHolder>(object : DiffUtil.ItemCallback<Story>() {
+    : PagingDataAdapter<Story, StoriesViewHolder>(object : DiffUtil.ItemCallback<Story>() {
     override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
         return oldItem == newItem
     }
@@ -29,14 +29,18 @@ class StoriesAdapter(private val callback: (story: Story, imageView: View, nameV
     override fun onBindViewHolder(holder: StoriesViewHolder, position: Int) {
         val item = getItem(position)
         holder.view.root.setOnClickListener{
-            callback.invoke(
-                item,
-                holder.view.ivItemPhoto,
-                holder.view.tvItemName,
-                holder.view.tvStoryDesc,
-            )
+            if (item != null) {
+                callback.invoke(
+                    item,
+                    holder.view.ivItemPhoto,
+                    holder.view.tvItemName,
+                    holder.view.tvStoryDesc,
+                )
+            }
         }
-        holder.bind(item)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 }
 

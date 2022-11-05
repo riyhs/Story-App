@@ -35,7 +35,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        listStoryViewModel.setStories(sharedPref.getString("token", "").toString(), 1)
+//        listStoryViewModel.setStories(sharedPref.getString("token", "").toString(), 1)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -55,11 +55,11 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(dicodingSpace, 15f))
 
-        listStoryViewModel.getStories().observe(this) { data ->
-            if (data != null) {
-                addManyMarker(data.listStory)
-            }
-        }
+//        listStoryViewModel.getStories().observe(this) { data ->
+//            if (data != null) {
+//                addManyMarker(data.listStory)
+//            }
+//        }
 
     }
 

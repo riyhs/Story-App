@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
 
-            loginViewModel.postLogin(email, password)
+            loginViewModel.postLogin(email, password, requireActivity())
 
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)

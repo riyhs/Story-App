@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
             val email = binding.edRegisterEmail.text.toString()
             val password = binding.edRegisterPassword.text.toString()
 
-            signUpViewModel.postSignUp(name, email, password)
+            signUpViewModel.postSignUp(name, email, password, requireActivity())
 
             signUpViewModel.isLoading.observe(viewLifecycleOwner) {
                 showLoading(it)

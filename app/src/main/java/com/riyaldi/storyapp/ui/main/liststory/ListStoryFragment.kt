@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
-import com.riyaldi.storyapp.utils.Preference
 
 class ListStoryFragment : Fragment() {
 
@@ -24,7 +23,9 @@ class ListStoryFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: StoriesAdapter
-    private val listStoryViewModel: ListStoryViewModel by viewModels()
+    private val listStoryViewModel: ListStoryViewModel by viewModels {
+        ViewModelFactory(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,23 +40,28 @@ class ListStoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(android.R.transition.move)
 
-        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
+//        val sharedPref = Preference.initPref(requireContext(), "onSignIn")
+//
+//        listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
+//        listStoryViewModel.getStories().observe(requireActivity()) { data ->
+//            if (data != null) {
+//                adapter.submitList(data.listStory)
+//            }
+//        }
+//
+//        listStoryViewModel.isLoading.observe(viewLifecycleOwner) {
+//            showLoading(it)
+//        }
 
-        listStoryViewModel.setStories(sharedPref.getString("token", "").toString())
-        listStoryViewModel.getStories().observe(requireActivity()) { data ->
+
+        listStoryViewModel.stories.observe(requireActivity()) { data ->
             if (data != null) {
-                adapter.submitList(data.listStory)
+                adapter.submitData(lifecycle , data)
             }
         }
 
-        listStoryViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
-        }
-
         setupAdapter()
-
         binding.fabCreateStory.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.createStoryFragment))
-
         onBackPressed()
     }
 
@@ -86,8 +92,11 @@ class ListStoryFragment : Fragment() {
                 )
         }
 
-        binding.rvStories.adapter = adapter
-
+        binding.rvStories.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
         binding.rvStories.viewTreeObserver
             .addOnPreDrawListener {
                 startPostponedEnterTransition()

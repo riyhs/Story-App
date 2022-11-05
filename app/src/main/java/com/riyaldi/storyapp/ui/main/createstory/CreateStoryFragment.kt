@@ -105,8 +105,7 @@ class CreateStoryFragment : Fragment() {
                     requestImageFile
                 )
 
-                val sharedPref = Preference.initPref(requireContext(), "onSignIn")
-                createStoryViewModel.postStory(imageMultipart, description, sharedPref.getString("token", "").toString())
+                createStoryViewModel.postStory(imageMultipart, description, requireActivity())
                 createStoryViewModel.createStoryResponse.observe(viewLifecycleOwner) {
                     if (it != null) {
                         Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()

@@ -1,5 +1,7 @@
 package com.riyaldi.storyapp.data.remote.network
 
+import android.content.Context
+import com.riyaldi.storyapp.utils.Preference
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,7 +25,10 @@ class ApiConfig {
             }
         }
 
-        fun getApiService(token: String? = ""): ApiService {
+        fun getApiService(context: Context): ApiService {
+
+            val sharedPref = Preference.initPref(context, "onSignIn")
+            val token = sharedPref.getString("token", null).toString()
 
             val retrofit = Retrofit.Builder()
                 .baseUrl("https://story-api.dicoding.dev/v1/")

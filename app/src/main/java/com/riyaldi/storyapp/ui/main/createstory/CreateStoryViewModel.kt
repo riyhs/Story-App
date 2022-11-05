@@ -1,5 +1,6 @@
 package com.riyaldi.storyapp.ui.main.createstory
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,9 +24,9 @@ class CreateStoryViewModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun postStory(file: MultipartBody.Part, description: RequestBody, token: String) {
+    fun postStory(file: MultipartBody.Part, description: RequestBody, context: Context) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService(token).postStory(file, description)
+        val client = ApiConfig.getApiService(context).postStory(file, description)
         client.enqueue(object : Callback<PostStoryResponse> {
             override fun onResponse(call: Call<PostStoryResponse>, response: Response<PostStoryResponse>) {
                 _isLoading.value = false

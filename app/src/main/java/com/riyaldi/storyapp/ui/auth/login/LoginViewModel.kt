@@ -1,5 +1,6 @@
 package com.riyaldi.storyapp.ui.auth.login
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,9 +23,9 @@ class LoginViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    fun postLogin(email: String, password: String) {
+    fun postLogin(email: String, password: String, context: Context) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().postLogin(email, password)
+        val client = ApiConfig.getApiService(context).postLogin(email, password)
         client.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 _isLoading.value = false

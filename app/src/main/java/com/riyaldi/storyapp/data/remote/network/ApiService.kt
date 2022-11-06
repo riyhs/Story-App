@@ -38,8 +38,8 @@ interface ApiService {
 
     @Multipart
     @POST("stories")
-    fun postStory(
+    suspend fun postStory(
         @Part file: MultipartBody.Part,
         @Part("description") description: RequestBody,
-    ): Call<PostStoryResponse>
+    ): PostStoryResponse
 }

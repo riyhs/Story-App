@@ -18,7 +18,9 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
+import com.riyaldi.storyapp.data.Result
 import com.riyaldi.storyapp.databinding.FragmentCreateStoryBinding
+import com.riyaldi.storyapp.utils.ViewModelFactory
 import com.riyaldi.storyapp.utils.reduceFileImage
 import com.riyaldi.storyapp.utils.rotateBitmap
 import com.riyaldi.storyapp.utils.uriToFile
@@ -33,7 +35,9 @@ class CreateStoryFragment : Fragment() {
     private var _binding: FragmentCreateStoryBinding? = null
     private val binding get() = _binding!!
 
-    private val createStoryViewModel: CreateStoryViewModel by viewModels()
+    private val createStoryViewModel: CreateStoryViewModel by viewModels {
+        ViewModelFactory(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,10 +67,6 @@ class CreateStoryFragment : Fragment() {
             )
             getFile = uri.toFile()
             binding.ivImagePreview.setImageBitmap(result)
-        }
-
-        createStoryViewModel.isLoading.observe(viewLifecycleOwner) {
-            showLoading(it)
         }
     }
 
@@ -104,11 +104,22 @@ class CreateStoryFragment : Fragment() {
                     requestImageFile
                 )
 
-                createStoryViewModel.postStory(imageMultipart, description, requireActivity())
-                createStoryViewModel.createStoryResponse.observe(viewLifecycleOwner) {
+                createStoryViewModel.postStory(imageMultipart, description).observe(viewLifecycleOwner) {
                     if (it != null) {
-                        Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-                        findNavController().navigate(CreateStoryFragmentDirections.actionCreateStoryFragmentToListStoryFragment())
+                        when (it) {
+                            is Result.Success -> {
+                                showLoading(false)
+                                Toast.makeText(context, it.data.message, Toast.LENGTH_LONG).show()
+                                findNavController().navigate(CreateStoryFragmentDirections.actionCreateStoryFragmentToListStoryFragment())
+                            }
+                            is Result.Loading -> {
+                                showLoading(true)
+                            }
+                            is Result.Error -> {
+                                showLoading(false)
+                                Toast.makeText(context, it.error, Toast.LENGTH_LONG).show()
+                            }
+                        }
                     }
                 }
             } else {

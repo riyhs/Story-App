@@ -12,11 +12,11 @@ import retrofit2.http.*
 interface ApiService {
     @FormUrlEncoded
     @POST("register")
-    fun postSignUp(
+    suspend fun postSignUp(
         @Field("name") name: String,
         @Field("email") enail: String,
         @Field("password") password: String
-    ): Call<SignUpResponse>
+    ): SignUpResponse
 
     @FormUrlEncoded
     @POST("login")

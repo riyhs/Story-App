@@ -14,15 +14,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
-import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
+import com.riyaldi.storyapp.data.Result
 import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
+import com.riyaldi.storyapp.databinding.FragmentSignUpBinding
+import com.riyaldi.storyapp.utils.ViewModelFactory
 
 class SignUpFragment : Fragment() {
 
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
-    private val signUpViewModel: SignUpViewModel by viewModels()
+    private val signUpViewModel: SignUpViewModel by viewModels{
+        ViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,19 +45,25 @@ class SignUpFragment : Fragment() {
             val email = binding.edRegisterEmail.text.toString()
             val password = binding.edRegisterPassword.text.toString()
 
-            signUpViewModel.postSignUp(name, email, password, requireActivity())
-
-            signUpViewModel.isLoading.observe(viewLifecycleOwner) {
-                showLoading(it)
-            }
-
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
-        }
 
-        signUpViewModel.signUpResponse.observe(requireActivity()) {
-            if (it != null) {
-                processSignUp(it)
+            signUpViewModel.signUp(name, email, password).observe(requireActivity()) {
+                if (it != null) {
+                    when(it) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                        is Result.Success -> {
+                            showLoading(false)
+                            processSignUp(it.data)
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            Toast.makeText(context, it.error, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
             }
         }
     }
@@ -81,5 +91,4 @@ class SignUpFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

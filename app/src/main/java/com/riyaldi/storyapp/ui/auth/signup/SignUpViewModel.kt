@@ -1,45 +1,8 @@
 package com.riyaldi.storyapp.ui.auth.signup
 
-import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
-import com.riyaldi.storyapp.data.remote.network.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.riyaldi.storyapp.data.StoryRepository
 
-class SignUpViewModel : ViewModel() {
-    companion object{
-        private const val TAG = "SignUpViewModel"
-    }
-
-    private val _signUpResponse = MutableLiveData<SignUpResponse>()
-    val signUpResponse: LiveData<SignUpResponse> = _signUpResponse
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    fun postSignUp(name: String, email: String, password: String, context: Context) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService(context).postSignUp(name, email, password)
-        client.enqueue(object : Callback<SignUpResponse> {
-            override fun onResponse(call: Call<SignUpResponse>, response: Response<SignUpResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    _signUpResponse.value = response.body()
-                } else {
-                    _signUpResponse.value = response.body()
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
+class SignUpViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+    fun signUp(name: String, email: String, password: String) = storyRepository.postSignUp(name, email, password)
 }

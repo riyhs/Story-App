@@ -32,9 +32,9 @@ interface ApiService {
     ) : StoriesResponse
 
     @GET("stories")
-    fun getStoriesWithLocation(
+    suspend fun getStoriesWithLocation(
         @Query("location") location: Int,
-    ) : Call<StoriesResponse>
+    ) : StoriesResponse
 
     @Multipart
     @POST("stories")

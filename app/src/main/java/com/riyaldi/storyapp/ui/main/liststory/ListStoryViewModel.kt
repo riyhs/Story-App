@@ -14,14 +14,3 @@ import com.riyaldi.storyapp.di.Injection
 class ListStoryViewModel(storyRepository: StoryRepository): ViewModel() {
     val stories: LiveData<PagingData<Story>> = storyRepository.getStories().cachedIn(viewModelScope)
 }
-
-class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        if (modelClass.isAssignableFrom(ListStoryViewModel::class.java)) {
-            return ListStoryViewModel(Injection.provideRepository(context)) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel Class")
-    }
-}

@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.storyapp.R
 import com.riyaldi.storyapp.databinding.FragmentListStoryBinding
+import com.riyaldi.storyapp.utils.ViewModelFactory
 
 class ListStoryFragment : Fragment() {
 

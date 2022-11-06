@@ -1,6 +1,7 @@
 package com.riyaldi.storyapp.ui.map
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -11,15 +12,19 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.riyaldi.storyapp.R
+import com.riyaldi.storyapp.data.Result
 import com.riyaldi.storyapp.data.remote.response.stories.Story
 import com.riyaldi.storyapp.databinding.ActivityMapBinding
+import com.riyaldi.storyapp.utils.ViewModelFactory
 
 class MapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapBinding
 
-    private val mapViewModel: MapViewModel by viewModels()
+    private val mapViewModel: MapViewModel by viewModels{
+        ViewModelFactory(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +34,6 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
-        mapViewModel.setStories(this)
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -41,9 +44,19 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        mapViewModel.getStories().observe(this) { data ->
-            if (data != null) {
-                addManyMarker(data.listStory)
+        mapViewModel.getStoriesWithLocation().observe(this) {
+            if (it != null) {
+                when(it) {
+                    is Result.Success -> {
+                        addManyMarker(it.data.listStory)
+                    }
+                    is Result.Loading -> {
+//                        showLoading
+                    }
+                    is Result.Error -> {
+                        Toast.makeText(this, it.error, Toast.LENGTH_LONG).show()
+                    }
+                }
             }
         }
     }
@@ -64,7 +77,7 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback {
                 bounds,
                 resources.displayMetrics.widthPixels,
                 resources.displayMetrics.heightPixels,
-                300
+                30
             )
         )
     }

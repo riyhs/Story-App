@@ -20,10 +20,10 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    fun postLogin(
+    suspend fun postLogin(
         @Field("email") enail: String,
         @Field("password") password: String
-    ): Call<LoginResponse>
+    ): LoginResponse
 
     @GET("stories")
     suspend fun getStories(

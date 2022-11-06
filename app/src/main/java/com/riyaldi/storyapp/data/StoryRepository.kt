@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.riyaldi.storyapp.data.remote.network.ApiService
+import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
 import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
 import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
 import com.riyaldi.storyapp.data.remote.response.stories.StoriesResponse
@@ -56,6 +57,17 @@ class StoryRepository(private val apiService: ApiService) {
             emit(Result.Success(response))
         } catch (e: Exception) {
             Log.e("SignUpViewModel", "postSignUp: ${e.message.toString()}")
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
+    fun postLogin(email: String, password: String): LiveData<Result<LoginResponse>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.postLogin(email, password)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            Log.e("LoginViewModel", "postLogin: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }

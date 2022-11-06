@@ -1,46 +1,8 @@
 package com.riyaldi.storyapp.ui.auth.login
 
-import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
-import com.riyaldi.storyapp.data.remote.response.login.LoginResult
-import com.riyaldi.storyapp.data.remote.network.ApiConfig
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.riyaldi.storyapp.data.StoryRepository
 
-class LoginViewModel : ViewModel() {
-    companion object{
-        private const val TAG = "LoginViewModel"
-    }
-
-    private val _loginResponse = MutableLiveData<LoginResponse>()
-    val loginResponse: LiveData<LoginResponse> = _loginResponse
-
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
-
-    fun postLogin(email: String, password: String, context: Context) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService(context).postLogin(email, password)
-        client.enqueue(object : Callback<LoginResponse> {
-            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    _loginResponse.value = response.body()
-                } else {
-                    _loginResponse.value = LoginResponse(true, message = "Password / Email Salah", loginResult = LoginResult("", "", ""))
-                    Log.e(TAG, "onFailure: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-    }
+class LoginViewModel(private val storyRepository: StoryRepository) : ViewModel() {
+    fun login(email: String, password: String) = storyRepository.postLogin(email, password)
 }

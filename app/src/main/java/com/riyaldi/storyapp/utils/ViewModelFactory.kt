@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.riyaldi.storyapp.di.Injection
+import com.riyaldi.storyapp.ui.auth.login.LoginViewModel
 import com.riyaldi.storyapp.ui.auth.signup.SignUpViewModel
 import com.riyaldi.storyapp.ui.main.createstory.CreateStoryViewModel
 import com.riyaldi.storyapp.ui.main.liststory.ListStoryViewModel
@@ -24,6 +25,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             }
             modelClass.isAssignableFrom(SignUpViewModel::class.java) -> {
                 SignUpViewModel(Injection.provideRepository(context)) as T
+            }
+            modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
+                LoginViewModel(Injection.provideRepository(context)) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel Class")
         }

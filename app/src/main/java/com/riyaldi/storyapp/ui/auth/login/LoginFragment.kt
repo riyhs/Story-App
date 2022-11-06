@@ -15,16 +15,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.riyaldi.storyapp.R
-import com.riyaldi.storyapp.databinding.FragmentLoginBinding
+import com.riyaldi.storyapp.data.Result
 import com.riyaldi.storyapp.data.remote.response.login.LoginResponse
+import com.riyaldi.storyapp.databinding.FragmentLoginBinding
 import com.riyaldi.storyapp.utils.Preference
+import com.riyaldi.storyapp.utils.ViewModelFactory
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val loginViewModel: LoginViewModel by viewModels()
+    private val loginViewModel: LoginViewModel by viewModels {
+        ViewModelFactory(requireContext())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,23 +46,31 @@ class LoginFragment : Fragment() {
             val email = binding.edLoginEmail.text.toString()
             val password = binding.edLoginPassword.text.toString()
 
-            loginViewModel.postLogin(email, password, requireActivity())
-
             val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(it.windowToken, 0)
+
+            loginViewModel.login(email, password).observe(requireActivity()) { result ->
+                if (result != null) {
+                    when(result) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                        is Result.Success -> {
+                            processLogin(result.data)
+                            showLoading(false)
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            Toast.makeText(requireContext(), result.error, Toast.LENGTH_LONG).show()
+                        }
+                    }
+                }
+            }
         }
 
         val isFromSignUp: Boolean? = arguments?.getBoolean("is_from_sign_up")
         if (isFromSignUp != null && isFromSignUp) {
             onBackPressed()
-        }
-
-        loginViewModel.loginResponse.observe(requireActivity()) { data ->
-            processLogin(data)
-        }
-
-        loginViewModel.isLoading.observe(requireActivity()) {
-            showLoading(it)
         }
     }
 

@@ -25,4 +25,5 @@ object DataDummy {
             listStory = listStory
         )
     }
+
 }

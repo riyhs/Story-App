@@ -64,12 +64,17 @@ dependencies {
 
     implementation "androidx.paging:paging-runtime-ktx:3.1.0"
     implementation 'androidx.room:room-ktx:2.4.0-rc01'
+    testImplementation 'junit:junit:4.12'
     kapt 'androidx.room:room-compiler:2.4.0-rc01'
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
 
     testImplementation 'junit:junit:4.13.2'
+
+    testImplementation 'org.mockito:mockito-core:3.12.4'
+    testImplementation 'org.mockito:mockito-inline:3.12.4'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }

@@ -6,7 +6,6 @@ import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
 import com.riyaldi.storyapp.data.remote.response.stories.StoriesResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
@@ -14,14 +13,14 @@ interface ApiService {
     @POST("register")
     suspend fun postSignUp(
         @Field("name") name: String,
-        @Field("email") enail: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): SignUpResponse
 
     @FormUrlEncoded
     @POST("login")
     suspend fun postLogin(
-        @Field("email") enail: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): LoginResponse
 

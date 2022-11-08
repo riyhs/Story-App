@@ -1,7 +1,7 @@
 package com.riyaldi.storyapp.ui.auth
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.riyaldi.storyapp.R
 
 class AuthActivity : AppCompatActivity() {

@@ -10,11 +10,11 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class FakeApiService: ApiService {
-    override suspend fun postSignUp(name: String, enail: String, password: String): SignUpResponse {
+    override suspend fun postSignUp(name: String, email: String, password: String): SignUpResponse {
         return DataDummy.generateDummyRegister()
     }
 
-    override suspend fun postLogin(enail: String, password: String): LoginResponse {
+    override suspend fun postLogin(email: String, password: String): LoginResponse {
         return DataDummy.generateDummyLogin()
     }
 

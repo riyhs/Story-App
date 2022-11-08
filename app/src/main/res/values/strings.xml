@@ -9,4 +9,7 @@
     <string name="storyDescription">desc %s</string>
     <string name="storyName">name %s</string>
     <string name="image_detail">Image detail</string>
+    <string name="map">Map</string>
+    <string name="retry">Retry</string>
+    <string name="data_not_loaded">Data not loaded</string>
 </resources>

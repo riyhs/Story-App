@@ -1,0 +1,72 @@
+Skenario Pengujian:
+
+LoginViewModelTest
+ - Ketika Login Sukses
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Success
+
+ - Ketika Login Gagal
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Error
+
+
+SignUpViewModelTest
+ - Ketika Sign Up Sukses
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Success
+
+ - Ketika Sign Up Gagal
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Error
+
+
+CreateStoryViewModelTest
+ - Ketika Post Story Sukses
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Success
+   3. Memastikan data response sesuai dengan yang diharapkan
+
+ - Ketika Sign Up Gagal
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Error
+
+
+ListStoryViewModelTest
+ - Ketika Berhasil mendapatkan List Story
+   1. Memastikan data tidak null
+   2. Memastikan data paging sesuai dengan yang diharapkan	
+   3. Memastikan jumlah data sesuai dengan yang diharapkan
+   4. Memastikan id data pertama sesuai dengan yang diharapkan
+
+
+MapViewModelTest
+ - Ketika Berhasil mendapatkan List Story
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Success
+   3. Memastikan jumlah data sesuai dengan yang diharapkan
+
+ - Ketika Gagal mendapatkan List Story
+   1. Memastikan data tidak null
+   2. Memastikan mengembalikan Result.Error
+
+
+StoryRepositoryTest
+  - Get Stories
+    1. Memastikan data tidak null
+    2. Memastikan jumlah data sesuai dengan yang diharapkan
+
+  - Get Stories With Location
+    1. Memastikan data tidak null
+    2. Memastikan jumlah data sesuai dengan yang diharapkan
+
+  - Post Story
+    1. Memastikan data tidak null
+    2. Memastikan data response sesuai dengan yang diharapkan
+
+  - Post Sign Up
+    1. Memastikan data tidak null
+    2. Memastikan data response sesuai dengan yang diharapkan
+
+- Post Log In
+    1. Memastikan data tidak null
+    2. Memastikan data response sesuai dengan yang diharapkan

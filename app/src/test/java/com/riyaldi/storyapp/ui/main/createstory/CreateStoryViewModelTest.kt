@@ -28,8 +28,8 @@ class CreateStoryViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var storyRepository: StoryRepository
+    @Mock private lateinit var storyRepository: StoryRepository
+
     private lateinit var createStoryViewModel: CreateStoryViewModel
     private val dummyResponse = DataDummy.generateDummyCreateStory()
 

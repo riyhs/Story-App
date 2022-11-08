@@ -22,8 +22,8 @@ class SignUpViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var storyRepository: StoryRepository
+    @Mock private lateinit var storyRepository: StoryRepository
+
     private lateinit var signUpViewModel: SignUpViewModel
     private val dummySignUpResponse = DataDummy.generateDummyRegister()
 

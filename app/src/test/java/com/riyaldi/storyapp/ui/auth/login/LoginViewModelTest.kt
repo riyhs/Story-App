@@ -22,8 +22,8 @@ class LoginViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    @Mock
-    private lateinit var storyRepository: StoryRepository
+    @Mock private lateinit var storyRepository: StoryRepository
+
     private lateinit var loginViewModel: LoginViewModel
     private val dummyLoginResponse = DataDummy.generateDummyLogin()
 

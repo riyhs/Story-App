@@ -34,19 +34,19 @@ class ListStoryViewModelTest{
     @get:Rule
     val mainDispatcherRules = MainDispatcherRule()
 
-    @Mock
-    private lateinit var storyRepository: StoryRepository
+    @Mock private lateinit var storyRepository: StoryRepository
+
     private val dummyStoriesResponse = DataDummy.generateDummyStories()
 
     @Test
     fun `when getStories Should Not Null and Return Success`() = runTest {
         val data: PagingData<Story> = StoryPagingSource.snapshot(dummyStoriesResponse.listStory)
-        val expectedQuote = MutableLiveData<PagingData<Story>>()
-        expectedQuote.value = data
-        Mockito.`when`(storyRepository.getStories()).thenReturn(expectedQuote)
+        val expectedStories = MutableLiveData<PagingData<Story>>()
+        expectedStories.value = data
+        Mockito.`when`(storyRepository.getStories()).thenReturn(expectedStories)
 
         val listStoryViewModel = ListStoryViewModel(storyRepository)
-        val actualQuote: PagingData<Story> = listStoryViewModel.stories.getOrAwaitValue()
+        val actualStories: PagingData<Story> = listStoryViewModel.stories.getOrAwaitValue()
 
         val differ = AsyncPagingDataDiffer(
             diffCallback = StoriesAdapter.DIFF_CALLBACK,
@@ -54,7 +54,7 @@ class ListStoryViewModelTest{
             workerDispatcher = Dispatchers.Main,
         )
 
-        differ.submitData(actualQuote)
+        differ.submitData(actualStories)
 
         Assert.assertNotNull(differ.snapshot())
         Assert.assertEquals(dummyStoriesResponse.listStory, differ.snapshot())

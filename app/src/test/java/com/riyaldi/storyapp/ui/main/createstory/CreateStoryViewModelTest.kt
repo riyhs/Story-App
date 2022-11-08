@@ -7,7 +7,6 @@ import com.riyaldi.storyapp.data.StoryRepository
 import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
 import com.riyaldi.storyapp.utils.DataDummy
 import com.riyaldi.storyapp.utils.getOrAwaitValue
-import io.github.serpro69.kfaker.Faker
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -37,10 +36,9 @@ class CreateStoryViewModelTest {
 
     @Test
     fun `when postStory Should Not Null and return success`() {
-        val faker = Faker()
-        val descriptionText = faker.lorem
+        val descriptionText = "Description text"
 
-        val description = descriptionText.toString().toRequestBody("text/plain".toMediaType())
+        val description = descriptionText.toRequestBody("text/plain".toMediaType())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
             "photo",
             "photo",
@@ -60,10 +58,9 @@ class CreateStoryViewModelTest {
 
     @Test
     fun `when Network Error Should Return Error`() {
-        val faker = Faker()
-        val descriptionText = faker.lorem
+        val descriptionText = "Description text"
 
-        val description = descriptionText.toString().toRequestBody("text/plain".toMediaType())
+        val description = descriptionText.toRequestBody("text/plain".toMediaType())
         val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
             "photo",
             "photo",

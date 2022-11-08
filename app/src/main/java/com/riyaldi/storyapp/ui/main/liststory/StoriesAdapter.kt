@@ -12,15 +12,7 @@ import com.riyaldi.storyapp.data.remote.response.stories.Story
 import com.riyaldi.storyapp.databinding.CardStoriesBinding
 
 class StoriesAdapter(private val callback: (story: Story, imageView: View, nameView: View, descView: View) -> Unit)
-    : PagingDataAdapter<Story, StoriesViewHolder>(object : DiffUtil.ItemCallback<Story>() {
-    override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
-        return oldItem.id == newItem.id
-    }
-}) {
+    : PagingDataAdapter<Story, StoriesViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesViewHolder {
         val view = CardStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StoriesViewHolder(view)
@@ -40,6 +32,18 @@ class StoriesAdapter(private val callback: (story: Story, imageView: View, nameV
         }
         if (item != null) {
             holder.bind(item)
+        }
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
         }
     }
 }

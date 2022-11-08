@@ -33,30 +33,30 @@ class MapViewModelTest{
         mapViewModel = MapViewModel(storyRepository)
     }
 
-    @Test
-    fun `when getStoriesWithLocation Should Not Null and return success`() {
-        val expectedStoryResponse = MutableLiveData<Result<StoriesResponse>>()
-        expectedStoryResponse.value = Result.Success(dummyStoriesResponse)
+        @Test
+        fun `when getStoriesWithLocation Should Not Null and return success`() {
+            val expectedStoryResponse = MutableLiveData<Result<StoriesResponse>>()
+            expectedStoryResponse.value = Result.Success(dummyStoriesResponse)
 
-        `when`(storyRepository.getStoriesWithLocation()).thenReturn(expectedStoryResponse)
+            `when`(storyRepository.getStoriesWithLocation()).thenReturn(expectedStoryResponse)
 
-        val actualStories = mapViewModel.getStoriesWithLocation().getOrAwaitValue()
-        Mockito.verify(storyRepository).getStoriesWithLocation()
-        Assert.assertNotNull(actualStories)
-        Assert.assertTrue(actualStories is Result.Success)
-        Assert.assertEquals(dummyStoriesResponse.listStory.size, (actualStories as Result.Success).data.listStory.size)
-    }
+            val actualStories = mapViewModel.getStoriesWithLocation().getOrAwaitValue()
+            Mockito.verify(storyRepository).getStoriesWithLocation()
+            Assert.assertNotNull(actualStories)
+            Assert.assertTrue(actualStories is Result.Success)
+            Assert.assertEquals(dummyStoriesResponse.listStory.size, (actualStories as Result.Success).data.listStory.size)
+        }
 
-    @Test
-    fun `when Network Error Should Return Error`() {
-        val expectedStoryResponse = MutableLiveData<Result<StoriesResponse>>()
-        expectedStoryResponse.value = Result.Error("network error")
+        @Test
+        fun `when Network Error Should Return Error`() {
+            val expectedStoryResponse = MutableLiveData<Result<StoriesResponse>>()
+            expectedStoryResponse.value = Result.Error("network error")
 
-        `when`(storyRepository.getStoriesWithLocation()).thenReturn(expectedStoryResponse)
+            `when`(storyRepository.getStoriesWithLocation()).thenReturn(expectedStoryResponse)
 
-        val actualStories = mapViewModel.getStoriesWithLocation().getOrAwaitValue()
-        Mockito.verify(storyRepository).getStoriesWithLocation()
-        Assert.assertNotNull(actualStories)
-        Assert.assertTrue(actualStories is Result.Error)
-    }
+            val actualStories = mapViewModel.getStoriesWithLocation().getOrAwaitValue()
+            Mockito.verify(storyRepository).getStoriesWithLocation()
+            Assert.assertNotNull(actualStories)
+            Assert.assertTrue(actualStories is Result.Error)
+        }
 }

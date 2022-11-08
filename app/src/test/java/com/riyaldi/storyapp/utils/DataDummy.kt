@@ -1,5 +1,6 @@
 package com.riyaldi.storyapp.utils
 
+import com.riyaldi.storyapp.data.remote.response.signup.SignUpResponse
 import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
 import com.riyaldi.storyapp.data.remote.response.stories.StoriesResponse
 import com.riyaldi.storyapp.data.remote.response.stories.Story
@@ -31,6 +32,13 @@ object DataDummy {
         return PostStoryResponse(
             error = false,
             message = "success"
+        )
+    }
+
+    fun generateDummyRegister(): SignUpResponse {
+        return SignUpResponse(
+            error = false,
+            message = "User Created"
         )
     }
 

@@ -1,5 +1,6 @@
 package com.riyaldi.storyapp.utils
 
+import com.riyaldi.storyapp.data.remote.response.stories.PostStoryResponse
 import com.riyaldi.storyapp.data.remote.response.stories.StoriesResponse
 import com.riyaldi.storyapp.data.remote.response.stories.Story
 
@@ -23,6 +24,13 @@ object DataDummy {
             error = false,
             message = "Stories fetched successfully",
             listStory = listStory
+        )
+    }
+
+    fun generateDummyCreateStory(): PostStoryResponse {
+        return PostStoryResponse(
+            error = false,
+            message = "success"
         )
     }
 

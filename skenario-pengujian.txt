@@ -48,25 +48,3 @@ MapViewModelTest
  - Ketika Gagal mendapatkan List Story
    1. Memastikan data tidak null
    2. Memastikan mengembalikan Result.Error
-
-
-StoryRepositoryTest
-  - Get Stories
-    1. Memastikan data tidak null
-    2. Memastikan jumlah data sesuai dengan yang diharapkan
-
-  - Get Stories With Location
-    1. Memastikan data tidak null
-    2. Memastikan jumlah data sesuai dengan yang diharapkan
-
-  - Post Story
-    1. Memastikan data tidak null
-    2. Memastikan data response sesuai dengan yang diharapkan
-
-  - Post Sign Up
-    1. Memastikan data tidak null
-    2. Memastikan data response sesuai dengan yang diharapkan
-
-- Post Log In
-    1. Memastikan data tidak null
-    2. Memastikan data response sesuai dengan yang diharapkan

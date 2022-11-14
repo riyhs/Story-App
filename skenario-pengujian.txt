@@ -26,7 +26,7 @@ CreateStoryViewModelTest
    2. Memastikan mengembalikan Result.Success
    3. Memastikan data response sesuai dengan yang diharapkan
 
- - Ketika Sign Up Gagal
+ - Ketika Post Story Gagal
    1. Memastikan data tidak null
    2. Memastikan mengembalikan Result.Error
 

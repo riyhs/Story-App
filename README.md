@@ -2,12 +2,11 @@
   Story App
 </h1>
 <p align="center">
-  Android App for Dicoding Belajar Pengembangan Aplikasi Android Intermediate Final Submission <br>
-  Please use this repository as reference only, every plagiarism get automated detected.
+  Android App for <a href="https://www.dicoding.com/academies/352" target="_blank">Dicoding Belajar Pengembangan Aplikasi Android Intermediate</a> Final Submission <br>
+  !!! Please use this repository as reference only, <strong>every plagiarism get automated detected</strong>. !!!
 </p>
 
 ## Table of Contents
-- [Installation](#installation)
 - [Screenshot](#screenshot)
 
 ## Screenshot

@@ -7,7 +7,12 @@
 </p>
 
 ## Table of Contents
+- [Installation](#installation)
 - [Screenshot](#screenshot)
+
+## Installation
+- Clone this repository 
+- Add this code `MAPS_API_KEY=YOUR_API_KEY` to `local.properties` file, replace `YOUR_API_KEY` with your own [Google Map Api Key](https://console.cloud.google.com/google/maps-apis/credentials)
 
 ## Screenshot
 |Splash Screen|Login|Sign Up|
